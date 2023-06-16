@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import "./WeatherApp.css";
 
 export const WeatherApp = () => {
   const [city, setCity] = useState("");
@@ -63,11 +64,13 @@ export const WeatherApp = () => {
         <div className="Data">
           <h2>Weather Data:</h2>
           <p>City: {data.name}</p>
-          {data.main.temp && (
-            <p>Temperature: {data.main.temp.toFixed(2)}°C</p>
-          )}{" "}
-          {/* Fixed to 2 decimal places */}
+          {data.main.temp && <p>Temperature: {data.main.temp.toFixed(2)}°C</p>}
           {data.weather[0].main && <p>Condition: {data.weather[0].main}</p>}
+          {data.weather[0].description && (
+            <p>Description: {data.weather[0].description}</p>
+          )}
+          {data.main.humidity && <p>Humidity: {data.main.humidity}%</p>}
+          {data.wind && <p>Wind Speed: {data.wind.speed} m/s</p>}
         </div>
       )}
     </div>
