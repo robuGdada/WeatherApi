@@ -23,6 +23,8 @@ export const WeatherApp = () => {
   const getWeatherData = () => {
     if (city !== "") {
       fetchWeatherData();
+    } else {
+      alert("Please enter a city name");
     }
   };
 
@@ -40,33 +42,45 @@ export const WeatherApp = () => {
   }
 
   return (
-    <div className="container">
-      <label className="Label">Enter the city name:</label>
-      <input
-        className="input"
-        type="text"
-        placeholder="Enter the city name...?"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        required
-      />
-      <button className="submit" type="submit" onClick={getWeatherData}>
-        Submit
-      </button>
-
-      {data && city !== "" && data.main && data.weather && (
-        <div className="Data">
-          <h2>Weather Data:</h2>
-          <p>City: {data.name}</p>
-          {data.main.temp && <p>Temperature: {data.main.temp}°C</p>}
-          {data.weather[0].main && <p>Condition: {data.weather[0].main}</p>}
-          {data.weather[0].description && (
-            <p>Description: {data.weather[0].description}</p>
+    <>
+      <div className="container">
+        <div className="weather-card">
+          <div className="input-container">
+            <label className="Label">Enter the city name</label>
+            <div className="input-wrapper">
+              <input
+                className="input"
+                type="text"
+                placeholder="Enter the city name...?"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                required
+              />
+              <button className="submit" type="submit" onClick={getWeatherData}>
+                Submit
+              </button>
+            </div>
+          </div>
+          {data && city !== "" && data.main && data.weather && (
+            <div className="Data">
+              <h2>Weather Data:</h2>
+              <p>City: {data.name}</p>
+              {data.main.temp && (
+                <p>
+                  Temperature: {data.main.temp}°C / Max: {data.main.temp_max}°C
+                  / Min: {data.main.temp_min}°C
+                </p>
+              )}
+              {data.weather[0].main && <p>Condition: {data.weather[0].main}</p>}
+              {data.weather[0].description && (
+                <p>Description: {data.weather[0].description}</p>
+              )}
+              {data.main.humidity && <p>Humidity: {data.main.humidity}%</p>}
+              {data.wind && <p>Wind Speed: {data.wind.speed} m/s</p>}
+            </div>
           )}
-          {data.main.humidity && <p>Humidity: {data.main.humidity}%</p>}
-          {data.wind && <p>Wind Speed: {data.wind.speed} m/s</p>}
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };

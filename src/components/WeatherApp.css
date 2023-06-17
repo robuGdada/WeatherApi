@@ -1,36 +1,67 @@
+body{
+    background-color: #efefae;
+}
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: flex-start; 
+  margin-top: 100px; 
+
+}
+
+.Label {
+  font-size: 16px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.weather-card {
+  background-color: rgb(128, 191, 222);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+  box-shadow: 0 2px 4px rgba(147, 193, 215);
+}
+
+.input-container {
+  position: relative;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 280px
+}
+
+.submit {
+  background-color: #2196f3;
+  cursor: pointer;
+  border: none;
+  width: 55px;
+  height: 22px;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+}
+.submit:hover {
+  background-color: #4caf50;
+}
+
+@media only screen and (max-width: 600px) {
+  .container {
+    margin-top: 50px;
+  }
+  
+  .Label {
+    width: 100%;
   }
   
   .input {
-    margin-bottom: 20px;
-    font-size: 20px;
-    padding: 10px;
-    width: 300px;
-    /* max-width: 80%; */
-    border-radius: 4px;
+    width: 100%;
   }
-  .Label{
-    margin-bottom: 10px;
-    font-size: 18px;
-    width: 300px;
-    text-align: center;
-  }
-  
-  .submit {
-    font-size: 18px;
-    padding: 10px 20px;
-    background-color: rgba(228, 18, 18);
-    color: #fff;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 100px;
-  }
-  .submit:hover{
-    background-color: #4caf50;
-
-  }
+}
