@@ -1,44 +1,17 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+
 import "./WeatherApp.css";
+import { useWeather } from "@/api/weather.api";
 
 export const WeatherApp = () => {
   const [city, setCity] = useState("");
 
-  const fetchWeatherData = async () => {
-    try {
-      const apiKey = "7c879a8831e9774036fb695c9b88c45a";
-      const response = await axios.get(
-        `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${apiKey}&units=metric`
-      );
-      return response.data;
-    } catch (e) {
-      if (e instanceof Error) {
-        return e.message;
-      }
-    }
-  };
+  const { data, isFetching, refetch } = useWeather();
 
-  const getWeatherData = () => {
-    if (city !== "") {
-      fetchWeatherData();
-    } else {
-      alert("Please enter a city name");
-    }
-  };
+  console.log({ data });
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["weatherData"],
-    queryFn: fetchWeatherData,
-  });
-
-  if (isLoading) {
+  if (isFetching) {
     return <h1>Loading......</h1>;
-  }
-
-  if (isError) {
-    return <div>Error occurred while fetching weather data.</div>;
   }
 
   return (
@@ -56,7 +29,12 @@ export const WeatherApp = () => {
                 onChange={(e) => setCity(e.target.value)}
                 required
               />
-              <button className="submit" type="submit" onClick={getWeatherData}>
+              <button
+                className="submit"
+                type="submit"
+                disabled={!city}
+                onClick={() => refetch()}
+              >
                 Submit
               </button>
             </div>
